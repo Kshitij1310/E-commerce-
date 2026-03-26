@@ -9,6 +9,9 @@ const Cart = lazy(() => import("./page/Cart"));
 const Profile = lazy(() => import("./page/Profile"));
 const Addproduct = lazy(() => import("./page/Addproduct"));
 const Viewproduct = lazy(() => import("./page/Viewproduct"));
+const Checkout = lazy(() => import("./page/Checkout"));
+const OrderSuccess = lazy(() => import("./page/OrderSuccess"));
+const Orders = lazy(() => import("./page/Orders"));
 
 function App() {
   return (
@@ -24,6 +27,33 @@ function App() {
           <Route path="/product/:id" element={<Viewproduct />} />
 
           <Route path="/cart" element={<Cart />} />
+
+          <Route
+            path="/checkout"
+            element={
+              <ProtectedRoute>
+                <Checkout />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/order-success"
+            element={
+              <ProtectedRoute>
+                <OrderSuccess />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute>
+                <Orders />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="/profile" element={<Profile />} />
 

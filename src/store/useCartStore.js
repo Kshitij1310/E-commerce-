@@ -1,8 +1,16 @@
 import { create } from "zustand";
 
-export const useCartStore = create((set, get) => ({
+const getCartFromStorage = () => {
+  try {
+    const data = localStorage.getItem("cart");
+    return data ? JSON.parse(data) : [];
+  } catch {
+    return [];
+  }
+};
 
-  cartItems: JSON.parse(localStorage.getItem("cart")) || [],
+export const useCartStore = create((set, get) => ({
+  cartItems: getCartFromStorage(),
   addToCart: (item) => {
     const { cartItems } = get();
     const existingItem = cartItems.find(
@@ -56,5 +64,10 @@ export const useCartStore = create((set, get) => ({
 
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     set({ cartItems: updatedCart });
+  },
+
+  clearCart: () => {
+    localStorage.setItem("cart", JSON.stringify([]));
+    set({ cartItems: [] });
   },
 }));
